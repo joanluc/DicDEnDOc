@@ -60,4 +60,80 @@ class DicEnDOc():
 
     # def __set_poLang__(self,lang="fr"):
         # self.lang=lang
+
+
+def test_DicEnDOc():
+    # __init__(self,paramList=list()):	
+    # paramList=[en_file,oc_file=None,potFile=True,
+    # poLang in [None,'ca','fr','it','po','sp'],
+    # altFile=[None,"*.po","*.org","*.md","*.html","*"],
+    # en_dial='en-com',oc_dial='oc-com
+    def set_params(testNb=int()):
+		en_file=input("POT file to translate filename? ")
+		params[0]=en_file
+		params[1]=None
+		params[2]=True
+	    params[3]=None
+		params[4]=None
+		if testNb==1:
+			oc_file=input("Occitan translated PO file filename? ")
+			params[1]=oc_file
+		elif testNb==2:
+	        frpo_file=input("French PO file filename? ")
+	        params[3]='fr'
+			params[4]=frpo_file
+		elif testNb==3:
+		    frpo_file=input("French PO file filename? ") 
+		    oc_file=input("Occitan translated PO file filename? ")
+			params[1]=oc_file
+	        params[3]='fr'
+			params[4]=frpo_file
+		elif testNb==4:
+	        while params[3] not in ['ca','it','pt','sp']:
+				params[3]=input("Catalan, Italian, Portugeese or spanish language")
+		    po_file=input("Catalan, Italian, Portugeese or spanish PO file filename? ") 
+			params[4]=po_file
+		else:
+			params[2]=False
+			# No POTfile so we have .org, .md or simple text translation
+		return params
+		
+    def revirar(params):
+		try:
+	        revirada=DicEnDOc(en_file)
+		    return revirada
+	    except Exception() es ex:
+	        print(format(ex))
+        
+    # Test translate from POT File
+	params=set_params(0)
+    revirada=revirar(params)
+    revirada.translateFromPotFile()
+    revirada.en2ocDb()
+    # Test translate from POT File and Occitan PO File is not standard
+	params=set_params(1)
+    revirada=revirar(params)
+    revirada.translateFromPotFile()
+    revirada.en2ocDb()
+    # Test translate from French PO File
+    # PoLang='fr' && altFile=frpo_file
+	params=set_params(2)
+    revirada=revirar(params)
+    revirada.translateFromCaFrItPtSpPoFile()
+    revirada.en2ocDb()
+    # Test translate from French PO File and Occitan PO File is not standard
+    # PoLang='fr' && altFile=frpo_file
+	params=set_params(3)
+    revirada=revirar(params)
+    revirada.translateFromCaFrItPtSpPoFile()
+    revirada.en2ocDb()
+    # Test translate from alternate doc file
+	params=set_params(4)
+    revirada=revirar(params)
+    revirada.translateAlternateDocFile()
+    revirada.en2ocDb()
+
+if __name__=="__main__":
+    test_DicEnDOc()
+
                
