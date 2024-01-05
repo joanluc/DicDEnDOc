@@ -184,10 +184,10 @@ class DicEnDOc():
 		import json
 		with open("en2ocWord.json") as EnWr:
 		    # enWord:{
-				#   wdGramType :[verb,noun,adjective,adverb,article,preposition,pronoun,determiners,conjunctions,interjections],
-     #   dialect in range("ComOc","AuvOc", "GasOc","LemOc","LenOc","ProOc","VivOc")
-				#   ocWord }
-				pass
+		    #   wdGramType :[verb,noun,adjective,adverb,article,preposition,pronoun,determiners,conjunctions,interjections],
+                    #   dialect in range("ComOc","AuvOc", "GasOc","LemOc","LenOc","ProOc","VivOc")
+		    #   ocWord }
+		    print("selectWordFromDB:open('en2ocWord.json')")
 
     def selectSentFromPgDB(self,EnSn):
 	snid_req = "SELECT SnId FROM EnSntb WHERE EnSn = "+EnSn  
