@@ -22,7 +22,6 @@ class DicEnDOc():
     oc_dial=dialectes
     oc_dial={'oc-com':'Common Occitan','oc-auv':'Occitan Auvernhan','oc-gas':'Occitan gascon','oc-lem':'Occitan lemosin','oc-len':'Occitan lengadocian','oc-pro':'Occitan provençau','oc-viv':'Occitan vivaro-alpin'}
     
-    
     def __init__(self,paramList=list()):	# paramList=[en_file,oc_file=None,potFile=True,poLang=None,altFile=None,en_dial='en-com',oc_dial='oc-com']):
         """
     	def __init__(self,en_file,oc_file=None,potFile=True,poLang=None,altFile=None,
@@ -60,94 +59,92 @@ class DicEnDOc():
 
     # def __set_poLang__(self,lang="fr"):
         # self.lang=lang
-
-
                
     def __git_tools__(self,gitAct,gitDir,gitUrl,gitParams):
-		"""
-		gitCmd in range("init","clone","add","commit","push","pull")
-		gitDir : local repo directory
-		gitUrl : remote server repo URL
-		https://gitpython.readthedocs.io/en/stable/tutorial.html#understanding-objects
-		* Initialize a new git Repo
-		  # $ git init <path/to/dir>
-		  from git import Repo
-		  repo = Repo.init(path_to_dir)
-		* Existing local git Repo
-		  repo = Repo(path_to_dir)
-		* Clone from URL
-		  For the rest of this tutorial we will use a clone from https://github.com/gitpython-developers/QuickStartTutorialFiles.git
-		  # $ git clone <url> <local_dir>
-		  repo_url = "https://github.com/gitpython-developers/QuickStartTutorialFiles.git"
-		  repo = Repo.clone_from(repo_url, local_dir)
-		* Latest Commit Tree
-		  tree = repo.head.commit.tree
-		* Any Commit Tree
-		  prev_commits = list(repo.iter_commits(all=True, max_count=10))  # last 10 commits from all branches
-		  tree = prev_commits[0].tree
-		* Display level 1 Contents
-		  files_and_dirs = [(entry, entry.name, entry.type) for entry in tree]
-		  files_and_dirs
-		  # Output
-		  # [(< git.Tree "SHA1-HEX_HASH" >, 'Downloads', 'tree'),
-		  #  (< git.Tree "SHA1-HEX_HASH" >, 'dir1', 'tree'),
-		  #  (< git.Blob "SHA1-HEX_HASH" >, 'file4.txt', 'blob')]
-		* Recurse through the Tree
-		  def print_files_from_git(root, level=0):
-			  for entry in root:
-				  print(f'{"-" * 4 * level}| {entry.path}, {entry.type}')
-				  if entry.type == "tree":
-					  print_files_from_git(entry, level + 1)
-		  print_files_from_git(tree)
-		  # Output
-		  # | Downloads, tree
-		  # ----| Downloads / file3.txt, blob
-		  # | dir1, tree
-		  # ----| dir1 / file1.txt, blob
-		  # ----| dir1 / file2.txt, blob
-		  # | file4.txt, blob
-		"""
-		import git
-		from git import Repo
-		dicDenDoc=Repo(gitDir)
-		if gitCmd=="add":
-			fileList=gitParams.split()
-			dicDenDoc.index.add(fileList)
-		elif gitCmd=="commit":
-			message=gitParams.split()
-			dicDenDoc.index.commit(message)
-		elif gitCmd=="status":
-			dicDenDoc.untracked_files
-			dicDenDoc.index.diff(None)
-		elif gitCmd=="push":
-			dicDenDoc.index.push()
-		elif gitCmd=="pull":
-			dicDenDoc.index.pull()
-		else:
-			print("Unknown Git Command")
+	"""
+	gitCmd in range("init","clone","add","commit","push","pull")
+	gitDir : local repo directory
+	gitUrl : remote server repo URL
+	https://gitpython.readthedocs.io/en/stable/tutorial.html#understanding-objects
+	* Initialize a new git Repo
+	  # $ git init <path/to/dir>
+	  from git import Repo
+	  repo = Repo.init(path_to_dir)
+	* Existing local git Repo
+	  repo = Repo(path_to_dir)
+	* Clone from URL
+	  For the rest of this tutorial we will use a clone from https://github.com/gitpython-developers/QuickStartTutorialFiles.git
+	  # $ git clone <url> <local_dir>
+	  repo_url = "https://github.com/gitpython-developers/QuickStartTutorialFiles.git"
+	  repo = Repo.clone_from(repo_url, local_dir)
+	* Latest Commit Tree
+	  tree = repo.head.commit.tree
+	* Any Commit Tree
+	  prev_commits = list(repo.iter_commits(all=True, max_count=10))  # last 10 commits from all branches
+	  tree = prev_commits[0].tree
+	* Display level 1 Contents
+	  files_and_dirs = [(entry, entry.name, entry.type) for entry in tree]
+	  files_and_dirs
+	  # Output
+	  # [(< git.Tree "SHA1-HEX_HASH" >, 'Downloads', 'tree'),
+	  #  (< git.Tree "SHA1-HEX_HASH" >, 'dir1', 'tree'),
+	  #  (< git.Blob "SHA1-HEX_HASH" >, 'file4.txt', 'blob')]
+	* Recurse through the Tree
+	  def print_files_from_git(root, level=0):
+	      for entry in root:
+		  print(f'{"-" * 4 * level}| {entry.path}, {entry.type}')
+		  if entry.type == "tree":
+		      print_files_from_git(entry, level + 1)
+		      print_files_from_git(tree)
+	  # Output
+	  # | Downloads, tree
+	  # ----| Downloads / file3.txt, blob
+	  # | dir1, tree
+	  # ----| dir1 / file1.txt, blob
+	  # ----| dir1 / file2.txt, blob
+	  # | file4.txt, blob
+	"""
+	import git
+	from git import Repo
+	dicDenDoc=Repo(gitDir)
+	if gitCmd=="add":
+	    fileList=gitParams.split()
+	    dicDenDoc.index.add(fileList)
+	elif gitCmd=="commit":
+	    message=gitParams.split()
+	    dicDenDoc.index.commit(message)
+	elif gitCmd=="status":
+	    dicDenDoc.untracked_files
+	    dicDenDoc.index.iff(None)
+	elif gitCmd=="push":
+	    dicDenDoc.index.push()
+	elif gitCmd=="pull":
+	    dicDenDoc.index.pull()
+	else:
+	    print("Unknown Git Command")
 			
     def __connect_pgSql__(self,pgUser,pgPass,db_request):
-		"""
-		Commit database after insert or update data
-		connect to central database
-		"""
-		import psycopg2
-		from config import config
-		conn = None
-		res = (None,None)
-		try:
-			params=config()
-			pconn = psycopg2.connect("dbname=DicDEnDocDB user="+pgUser+" password="+pgPass)
-			cur = conn.cursor()
-			cur.execute(db_request)
-			db_result = cur.fetchone()
-			res[0] = format(db_result)
-			cur.close()
-		except (Exception, psycopg2.DatabaseError) as error:
-			res[1] = format(db_request+":"+error)
-		finally:
-			if conn is not None:
-				conn.close()
+	"""
+	Commit database after insert or update data
+	connect to central database
+	"""
+	import psycopg2
+	from config import config
+	conn = None
+	res = (None,None)
+	try:
+	    params=config()
+	    pconn = psycopg2.connect("dbname=DicDEnDocDB user="+pgUser+" password="+pgPass)
+	    cur = conn.cursor()
+	    cur.execute(db_request)
+	    db_result = cur.fetchone()
+	    res[0] = format(db_result)
+	    cur.close()
+	except (Exception, psycopg2.DatabaseError) as error:
+	    res[1] = format(db_request+":"+error)
+	finally:
+	    if conn is not None:
+		conn.close()
         return(res)
         
     def __extract_file_to_dict__(self,filename):
@@ -165,28 +162,28 @@ class DicEnDOc():
             return(dic)
 
     def selectWordFromDB(self,dbTyp,EnWr):
-		"""
-		dbTyp in range("Postgres","MySQL","SQLite")
-		or JSON files :
-		    "en2ocSent.json"
-		    "en2ocWord.json"
-		    "enVerb.json"
-		    "oc2enWord.json"
-		    "ocVerb.json"
-		"""
-		if dbTyp in ("Postgres","MySQL","SQLite"):
-			db_request = "SELECT * FROM OcWrtb WHERE WrId "+EnWr
-			if dbTyp == "Postgres":
-			    result = self.__connect_pgSql__(pgUser,pgPass,db_request)
-		    elif dbTyp=="MySQL":
-			    raise("Not implemented")
-		    elif dbTyp=="SQLite":
-			    raise("Not implemented")
-		else:
-			# dbTyp=="JSON files ("en2ocSent.json)"
-			import json
-			with open("en2ocWord.json") as EnWr:
-				# enWord:{
+	"""
+	dbTyp in range("Postgres","MySQL","SQLite")
+	or JSON files :
+	    "en2ocSent.json"
+	    "en2ocWord.json"
+	    "enVerb.json"
+	    "oc2enWord.json"
+	    "ocVerb.json"
+	"""
+	if dbTyp in ("Postgres","MySQL","SQLite"):
+	    db_request = "SELECT * FROM OcWrtb WHERE WrId "+EnWr
+	    if dbTyp == "Postgres":
+		result = self.__connect_pgSql__(pgUser,pgPass,db_request)
+	    elif dbTyp=="MySQL":
+		raise("Not implemented")
+	    elif dbTyp=="SQLite":
+	        raise("Not implemented")
+	    else:
+		# dbTyp=="JSON files ("en2ocSent.json)"
+		import json
+		with open("en2ocWord.json") as EnWr:
+		    # enWord:{
 				#   wdGramType :[verb,noun,adjective,adverb,article,preposition,pronoun,determiners,conjunctions,interjections],
      #   dialect in range("ComOc","AuvOc", "GasOc","LemOc","LenOc","ProOc","VivOc")
 				#   ocWord }
