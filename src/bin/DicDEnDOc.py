@@ -188,6 +188,7 @@ class DicEnDOc():
 			with open("en2ocWord.json") as EnWr:
 				# enWord:{
 				#   wdGramType :[verb,noun,adjective,adverb,article,preposition,pronoun,determiners,conjunctions,interjections],
+     #   dialect in range("ComOc","AuvOc", "GasOc","LemOc","LenOc","ProOc","VivOc")
 				#   ocWord }
 				pass
 
