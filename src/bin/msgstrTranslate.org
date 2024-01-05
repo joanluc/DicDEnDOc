@@ -1,0 +1,53 @@
+#+TITLE: msgstrTranslate
+#+DESCRIPTION: Automatic Occitan Translations for GNU GPL Licensed Software
+"""
+
+* class Msgstr_Translate
+  class var: projName = name of occitan translation project
+             ex: WineHQ Occitan translation, prjName = 'wine' 
+** Method potBased
+   input var: potFile = messages reference file
+              ocpoFile = occitan translated messages file
+   inner var: msgidLine, msgstrTab, msgstrLine, word
+   function
+     for each line in potFile begining with msgid {
+       write that line as msgidLine to ocpoFile
+       copy that line as msgistrLine
+       for each word  in msgistrLine {
+         if word='msgid' replace with 'msgstr'
+         else replace with occitan translation word
+       }
+       write msgistrLine to ocpoFile
+     }
+      
+** Method frpoBased
+   occitan translation based on existing french translation
+   may use [["Lo Congres"|https://locongres.org]] revirada.eu french to occitan translation tool
+   for each rdLine in frpoFile {
+     if rdLine[0]=="msgstr" {
+       msgstrLine[0]='msgstr'
+       for i in (1,++,len(rdLine)) {
+         word=rdLine[i]
+	 ocwd=revirada.eu(word)
+	 mdgstrLine[i]=ocwd
+	}
+	write(msgstrLine)->ocpoFile
+      }
+      else write(rdLine)->ocpoFile
+
+   
+"""
+#+BEGIN-SRC :python
+class  Msgstr_Translate():
+    def __init__(self,projName):
+        self.projName=projName
+	
+    def potBased(self,
+                 potName=self.projName+".pot",
+                 ocpoName=self.projName+"oc.po",
+	with open(potName,'r') as pot:
+            po=open(ocpoName,'r')
+	    for line in pot.readline():
+	        if line[0]=='msgid':
+		    
+#+END-SRC
