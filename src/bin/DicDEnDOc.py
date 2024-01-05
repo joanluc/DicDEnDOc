@@ -190,26 +190,26 @@ class DicEnDOc():
 				pass
 
     def selectSentFromPgDB(self,EnSn):
-		snid_req = "SELECT SnId FROM EnSntb WHERE EnSn = "+EnSn  
-		ocsn_req = "SELECT OcSn FROM OcSntb WHERE SnId = "+snid_request
-		result = self.__connect_pgSql__(pgUser,pgPass,db_request)
-		return(result)
+	snid_req = "SELECT SnId FROM EnSntb WHERE EnSn = "+EnSn  
+	ocsn_req = "SELECT OcSn FROM OcSntb WHERE SnId = "+snid_request
+	result = self.__connect_pgSql__(pgUser,pgPass,db_request)
+	return(result)
 
     def insertSentIntoPgDB(self,SnId,EnSn,OcSn):
-		db_request = "INSERT INTO FROM EnSntb (SnId "+EnSn+")"
-		result = self.__connect_pgSql__(pgUser,pgPass,db_request)
-		db_request = "INSERT INTO FROM OcSntb (SnId "+OcSn+")"
-		result = self.__connect_pgSql__(pgUser,pgPass,db_request)
+	db_request = "INSERT INTO FROM EnSntb (SnId "+EnSn+")"
+	result = self.__connect_pgSql__(pgUser,pgPass,db_request)
+	db_request = "INSERT INTO FROM OcSntb (SnId "+OcSn+")"
+	result = self.__connect_pgSql__(pgUser,pgPass,db_request)
 
     def insertWordIntoPgDB(self,WrId,EnSn,OcSn):
-		db_request = "INSERT INTO FROM EnWrtb (WrId "+EnWr+")"
-		result = self.__connect_pgSql__(pgUser,pgPass,db_request)
-		db_request = "INSERT INTO FROM OcWrtb (WrId "+OcWr+")"
-		result = self.__connect_pgSql__(pgUser,pgPass,db_request)
+	db_request = "INSERT INTO FROM EnWrtb (WrId "+EnWr+")"
+	result = self.__connect_pgSql__(pgUser,pgPass,db_request)
+	db_request = "INSERT INTO FROM OcWrtb (WrId "+OcWr+")"
+	result = self.__connect_pgSql__(pgUser,pgPass,db_request)
 		
     def parseWordsInSentence(self,sentence):
         """
-		Extract all words in a natural lenguage sentence that is of string data type to a list of separated single words
+	Extract all words in a natural lenguage sentence that is of string data type to a list of separated single words
         """
         from nltk.tokenize import word_tokenize
         wordList=word_tokenize(sentence)
@@ -218,27 +218,27 @@ class DicEnDOc():
 
     def readFileBySentence(self,file):
         """
-		Read plain text file and parse it into sentences then return them into an ordonned dictionary
-		* Extraction of sentences from text files
-			* nltk (Natural Language Tool Kit)
-			  https://www.nltk.org/
-			  https://realpython.com/nltk-nlp-python/
-	    While analyzing text, we can tokenize by word or tokenize by sentence.
+	Read plain text file and parse it into sentences then return them into an ordonned dictionary
+	* Extraction of sentences from text files
+	* nltk (Natural Language Tool Kit)
+	  https://www.nltk.org/
+	  https://realpython.com/nltk-nlp-python/
+	  While analyzing text, we can tokenize by word or tokenize by sentence.
         * nltk.tokenize
-      	    Here’s what both types of tokenization bring to the table:
-            * word_tokenize
-      	      Words are natural language atoms, smallest unit of meaning that still makes sense on its own.
-	          They will be the base of english and occitan word directories.
-	        * sent_tokenize
-              When we tokenize by sentence, we can analyze how words relate one  to another and have informations on context.
+      	  Here’s what both types of tokenization bring to the table:
+          * word_tokenize
+      	    Words are natural language atoms, smallest unit of meaning that still makes sense on its own.
+	    They will be the base of english and occitan word directories.
+	  * sent_tokenize
+            When we tokenize by sentence, we can analyze how words relate one  to another and have informations on context.
         * Prerequisite : ntlk pip installation
-	      #+BEGIN_SRC bash
-	      python -m pip install nltk==3.5
-	      #+END_SRC
+	#+BEGIN_SRC bash
+	  python -m pip install nltk==3.5
+	#+END_SRC
 
         * NLTK Data
-	      https://www.nltk.org/data
-	      python -m pip install numpy matplotlib
+	  https://www.nltk.org/data
+	  python -m pip install numpy matplotlib
         """
         from nltk.tokenize import sent_tokenize
         # if ntlk.download("punkt")
@@ -274,8 +274,7 @@ class DicEnDOc():
         keywords=[',','.',';','?','!',
                   '*','#','+','/','-',
                   '\\','&','|']
-        if (not type(enw)==str()
-            or not type(enTab)==dict()):
+        if (not type(enw)==str() or not type(enTab)==dict()):
             raise(TypeError("Type error:"+format(enw)
                             +" or "+format(enTab)))
         if enw in keywords:
@@ -288,49 +287,48 @@ class DicEnDOc():
         return(ocw)			# translate english 'en_word' to occitan 'oc_word'
 
     def ocTranslateS(self,sentence):
-		ocSn = self.selectSentFromDB(sentence)
-		# if (ocSn != None):
-		#	self.parseWordsInSentence(sentence)
+	ocSn = self.selectSentFromDB(sentence)
+	# if (ocSn != None):
+	#	self.parseWordsInSentence(sentence)
         ocSent=self.rearrangeMoctable(line)
         
     def translateAlternateDocFile(self,poLang):
         """
-	    Begin tranlation of .org, .md, .html or simple text file such as LICENSE files
+	Begin tranlation of .org, .md, .html or simple text file such as LICENSE files
         Open and parse english file by sentences
-	    """
+	"""
         self.enDict=self.readFileBySentence(enFile)
         with open(self.ocFile,'a') as of:
             for i in range(0,enDict(len)):
                 self.ocDict[i]=self.ocTranslateS(enDict[i])
                 self.ocFile.write(ocDict[i])
         
-        
     def en2ocDb(self):
-		"""
-		"""
-                                            
+	"""
+	"""
+        print(en2ocDb)                                 
 
     def translateFromCaFrItPtSpPoFile(self):
         """
-		Begin tranlation from a Catalan, French, Italian, Portuguese or Spanish translated PoFile
-		input datas:
-		* self.potfile: english pot file,
-		* self.pofile: translated PoFile,
-		* self.poLang: pofile lenguage
-		Process
-		* copy file.po file-oc.po
-		  open  file-oc.po for reading and writing
+	Begin tranlation from a Catalan, French, Italian, Portuguese or Spanish translated PoFile
+	input datas:
+	* self.potfile: english pot file,
+	* self.pofile: translated PoFile,
+	* self.poLang: pofile lenguage
+	Process
+	* copy file.po file-oc.po
+	  open  file-oc.po for reading and writing
           for each line in  file-oc.po
-            if line begins with 'msgid'
-	        verify the same line is into file.pot 
-            search line begining with 'msgstr'
-	      init rest of msgstr line as empty 'moctable'
-            translate using external ressource 
-            for each word in 'idtable' as 'en_word'
-                translate 'en_word' to occitan 'oc_word'
-	        add 'oc_word' to 'moctable'
-            rearrange 'moctable'
-		"""       
+              if line begins with 'msgid'
+	          verify the same line is into file.pot 
+                  search line begining with 'msgstr'
+	          init rest of msgstr line as empty 'moctable'
+                  translate using external ressource 
+                  for each word in 'idtable' as 'en_word'
+                  translate 'en_word' to occitan 'oc_word'
+	      add 'oc_word' to 'moctable'
+              rearrange 'moctable'
+	"""       
         with open(self.altFile) as po:
             pot=open(self.en_file,'r')
             ocf=open(self.oc_file,'a')
@@ -387,7 +385,6 @@ class DicEnDOc():
                         ocDb.write(idx,ocw)
                 ocLine=ocLine+" "+ocw
                 ocLine=rearrange(ocLine)
-
 
 def test_DicEnDOc():
     # __init__(self,paramList=list()):	
