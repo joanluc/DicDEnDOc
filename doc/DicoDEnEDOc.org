@@ -1,1 +1,7 @@
+#+title: Dico d'En e d'Òc
+#+subtitle: English and Occitan Dictionary
+#+oc_subtitle: Diccionaire d'Inglès e d' Occitan 
 
+https://translations.launchpad.net/ubuntu-docs/trunk/+pots/ubuntu-help/oc/+translate
+
+https://revirada.eu/#ancreapp

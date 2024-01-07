@@ -1,0 +1,59 @@
+@startuml
+  actor Translator as Tr
+  collections "English text" as EnTx
+  collections "Latin lenguage text" as LaTx
+  collections "Occitan text" as OcTx
+  collections "English interface" as EnIf
+  collections "Latin lenguage interface" as LaIf
+  collections "Occitan interface" as OcIf  
+  database "DicDEnDOc DataBase" as DiDb
+  control "DicDEnDOc Program" as DiPr
+  collections "Org-mode, Markdown, Html, xml or other markup lenguage file" as MaFi
+  collections "Plain simple text file" as SiFi
+  collections "GNU program interface POT or PO file" as PoFi  
+  alt  
+    Tr -> EnTx :  Translate
+    alt
+      EnTx -> MaFi : "Is of markup type"
+      boundary "Markup keyword set" as MaKy
+      re -> Maky : "Check Markup keyword occurs"
+    else
+      EnTx -> SiFi : "Is of simple text type"
+    DiPr -> OcTx : Write
+    DiPr -> DiDn : Update
+  else  
+    Tr -> LaTx :  Translate
+    Tr -> EnTx :  Reference
+    alt
+      LaTx -> MaFi : "Is of markup type"
+      boundary "Markup keyword set" as MaKy
+      re -> Maky : "Check Markup keyword occurs"
+    else
+      LaTx -> SiFi : "Is of simple text type"
+    end
+    DiPr -> OcTx : Write
+    DiPr -> DiDn : Update
+  else
+    Tr -> EnIf :  Translate
+    alt
+      EnIf -> MaFi : "Is of POT type"
+      boundary "POT keyword set ['msgid','msgstr',msgtxt']" as MaKy
+      re -> Maky : "Check POT keyword occurs"
+    end
+    DiPr -> OcIf : Write
+    DiPr -> DiDn : Update
+  else  
+    Tr -> LaIf :  Translate
+    Tr -> EnIf :  Reference
+    alt
+      EnIf -> MaFi : "Is of POT type"
+      LaIf -> MaFi : "Is of PO type"
+      boundary "POT keyword set ['msgid','msgstr',msgtxt']" as MaKy
+      re -> Maky : "Check PO keyword occurs"
+    else
+      EnTx -> SiFi : "Is of simple text type"
+    end
+    DiPr -> OcIf : Write
+    DiPr -> DiDn : Update
+  end
+@enduml

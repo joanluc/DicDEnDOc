@@ -1,0 +1,28 @@
+@startuml
+  actor Translator as Tr                             #Green
+  actor Developper as Dv                             #Black
+  actor Administrator as Adm                         #Red
+
+  database "DicDEnDOc local database" as DiLD
+  database "DicDEnDOc remote database" as DiRD  
+  control "DicDEnDOc client program" as DiCP
+  control "DicDEnDOc server program" as DiSP
+
+  Tr -> DiCP : Use
+  Tr -> (DiLD Create Read Update Delete as CRUD)   
+  DiCP -> DiLD : (Create Read Update Delete as CRUD) 
+  DiCP -> DiLD : (Grant All as GA)                   
+
+  DiCP -> DiSP : (User authentication)               
+  DiSP -> DiCP : (User role)                         
+  Tr -> DiRD : ( Read Update  as RU)                 
+  DiCP -> DiRD : ( Read Update  as RU)               
+
+  Dv -> DiRD :  (Create Read Update as CRU)          
+  DiCP -> DiRD :  (Create Read Update as CRU)        
+  
+  Adm -> DiRD : (Create Read Update Delete as CRUD)  
+  Adm -> DiRD : (Grant All as GA)                    
+  DiCP -> DiRD : (Create Read Update Delete as CRUD) 
+  DiCP -> DiRD : (Grant All as GA)                   
+@enduml

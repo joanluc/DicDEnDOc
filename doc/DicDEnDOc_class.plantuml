@@ -1,0 +1,34 @@
+@startuml
+
+ 
+class DicDenDoc {
+
+  collections "English sentences" as EnSn
+  collections "English words" as EnWr
+  collections "Latin lenguage sentences" as LaSn
+  collections "Latin lenguage words" as LaWr
+  collections "Occitan sentences" as OcSn
+  collections "Occitan words" as OcWr
+ 
+  
+  [Regular Expressions] as RE
+  [Natural Lenguage Tool Kit] as NLTK
+  [PyTorch] as PT
+  database En2OcDB
+  -init()
+  -commitDB()
+  +selectWordFromDB()
+  +selectSentFromDB()
+  +insertWordToDB()
+  +insertSentToDB()
+  +translationFromMLFile()
+  +translationFromPotFile()
+  +translationFromLatinPoFile()
+    
+}
+  
+  
+
+
+
+@enduml

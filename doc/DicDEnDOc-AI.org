@@ -1,0 +1,27 @@
+#+TITLE: DicDEnDOc Artificial Intelligence
+
+* Statistics
+  Search the maximum correspondance of words into 2 english sentences then select the corresponding occitan sentence
+#+begin_src python:
+class AI():
+    def __init__(self,enSent):
+        self.enSent=enSent
+    def stat_ai1(self,dbFile):
+        '''
+        dbFile : {
+            "sentId": ["filename","file version",order] /* (.POT filename,file version, msgId order number);(filename,file version,sentence order number in file) */
+            "enSent":enSent,
+            "ocSent":ocSent
+        }
+        '''
+        from nltk.tokenize import word_tokenize
+        try:
+            enDict=word_tokenize(self.enSent)
+            with open(dbFile) as dbf:
+                import json
+                json.dump(data, dbf)
+
+
+#+end_src
+  
+* GPT  

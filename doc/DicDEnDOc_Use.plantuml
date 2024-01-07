@@ -1,0 +1,9 @@
+@startuml
+@startuml
+  actor Translator as Tr
+
+  Tr -> (Plain text translation)
+  Tr -> (Markup file translation)
+  Tr -> (GNU Interface Pot file translation)
+  Tr -> (Update translation database)
+@enduml

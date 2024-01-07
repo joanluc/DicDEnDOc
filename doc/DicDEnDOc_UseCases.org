@@ -1,0 +1,140 @@
+#+TITLE: DicDEnDOc Use Cases
+#+AUTHOR: Joanluc <joanluc.laborda@free.fr>
+#+DESCRIPTION: Dictionnary D'English (and) D'Occitan : an attempt to transalte directly English texts to Occitan and reverse
+
+* Use cases
+
+  [[./img/DicDEnDOc_Use.png]]
+
+  [[./img/DicDEnDOc.png]]
+
+** Client-Server  Architecture
+
+  [[./img/DicDEnDOcSrv_UseCases.png]]
+
+
+* Main Differences between English and Occitan Lenguages
+  https://dictionary.cambridge.org/grammar/british-grammar/word-classes-and-phrase-classes
+  Word classes and phrase classes
+  * Major word classes
+    | nouns | verbs | adjectives | adverbs |
+  * Other word classes
+    Prepositions : they describe the relationship between words from the major word classes and include words such as "at", "in", "on", "across", "behind", "for".
+    Pronouns : they substitute for noun phrases, so that we do not need to say the whole noun phrase or repeat it unnecessarily including words such as "you", "it", "we", "mine", "ourwhich substitute for noun phrases, so that we do not need to say the whole noun phrase or repeat it unnecessarily. Pronouns include words such as you, it, we, mine, ours, theirs, someone, anyone, one, this, those:s", "theirs", "someone", "anyone", "one", "this", "those".
+    Determiners include words such as "a"/"an", "the", "my", "his", "some", "this", "both" and come before nouns and show what type of reference the noun is making.
+    Conjunctions include "and", "but", "when", "if", "because" and show a link between one word, phrase or clause and another word, phrase or clause.
+    Interjections are mostly exclamation words (e.g. gosh! wow! oh!), which show people’s reactions to events and situations.
+  * Phrase classes
+    The different word classes can form the basis of phrases operating as the head of the phrase: heads of phrases (H) can have words before them (e.g. determiners (det), adjectives (adj), adverbs (adv)) or after them (e.g. postmodifiers (pm) or complements (c)):
+    * A noun phrase consists of a noun or pronoun, which is called the head, and any dependent words before or after the head. 
+      Dependent words give specific information about the head.
+      https://dictionary.cambridge.org/grammar/british-grammar/noun-phrases
+    * A verb phrase consists of a main verb alone, or a main verb plus any modal and/or auxiliary verbs. 
+      The main verb always comes last in the verb phrase.
+      mo = modal verb; 
+      aux = auxiliary verb; 
+      mv = main verb
+      https://dictionary.cambridge.org/grammar/british-grammar/noun-phrases
+    * An adjective phrase always has an adjective acting as the head. The adjective phrase may also contain words or phrases before or after the head (modifiers and complements)
+     One of the main functions of adjective phrases is that they go with nouns and change or add to their meaning.
+  https://dictionary.cambridge.org/grammar/british-grammar/adjective-phrases
+    * An adverb phrase consists of one adverb or an adverb plus other words before it (premodification) or after it (postmodification) and have many different meanings.
+      The adverb is the head of the phrase and can appear alone or it can be modified by other words.
+      https://dictionary.cambridge.org/grammar/british-grammar/adverb-phrases
+    * Prepositional phrases consist of a preposition and the words which follow it: a complement that is most commonly a noun phrase or pronoun, but can also be, an adverb phrase (usually one of place or time), a verb in the -ing form or, less commonly, a prepositional phrase or a wh-clause
+      https://dictionary.cambridge.org/grammar/british-grammar/prepositional-phrases
+
+  * Differences in verb conjugation
+    * English
+      In English, you can type in infinitive forms such as "go", "abide", "break", … but also conjugated forms ( "done", "making", "has", "comes"),  infinitive, reflexive verbs ( "hurt oneself") and negative forms ( "not remember") as well as phrasal verbs ( "get off", "come in"). 
+      There are contracted forms of auxiliaries and negatives, e.g.: not believe: "I do not believe" or "I don't believe", see: "I have seen" or "I'veMajor word classes seen", "I will go" or "I'll go"...
+      Conjugation rules for irregular verbs and models such as "will" and "should" are also included. The page British and American English highlights some important usage differences.
+    * Occitan
+      [[https://dicodoc.eu/oc/conjugasons]]
+
+  * The noun group
+    * English
+      * Genders : male, female, neutral
+      * Place of the adjective 
+        In English, the adective is most often placed before the noun and does not overlap
+    * Occitan
+      * Genders : male, female 
+      * Place of the adjective 
+        In Occitan, the adective is most often placed after the noun and does overlap so it can be male or female, singular or plurial
+    
+  * Dialectes
+    * Main english dialectes:
+      Essential British English Dictionary https://dictionary.cambridge.org/browse/essential-british-english/
+      Essential American English Dictionary  https://dictionary.cambridge.org/browse/essential-american-english
+    * Main occitan dialectes : auvergnat, gascon, languedocien, limousin, provençal, vivaro-alpin
+      https://locongres.org/
+      
+#+BEGIN_SRC python:    
+    dialectes=dict()
+    en_dial=dialectes
+    en_dial={('en-com':'Common english'),
+             ('en-eng':'England english'),
+             ('en-usa':'USA english'),
+             ('en-aus':'Austalian english')}
+    oc_dial=dialectes
+    oc_dial={('oc-com':'Common Occitan'),
+             ('oc-auv':'Occitan Auvernhan'),
+             ('oc-gas':'Occitan gascon'),
+             ('oc-lem':'Occitan lemosin'),
+             ('oc-len':'Occitan lengadocian'),
+             ('oc-pro:'Occitan provençau),
+             ('oc-viv','Occitan vivaro-alpin')}
+#+END_SRC
+
+* Human Machine Interface
+  pot|po files
+** pot file
+   copy file.pot file-oc.po
+   open  file-oc.po for reading and writing
+   for each line in  file-oc.po
+       if line begins with 'msgid'
+           copy rest of the line to memory_table 'idtable'
+       search line begining with 'msgstr'
+       init rest of msgstr line as empty 'moctable'
+       for each word in 'idtable' as 'en_word'
+           translate 'en_word' to occitan 'oc_word'
+	   add 'oc_word' to 'moctable'
+       rearrange 'moctable'
+*** translate english 'en_word' to occitan 'oc_word'
+    word in database/english_table
+        get word index 'wi'
+	search 'wi' in database/occitan_table
+	get corrrsponding occitan word 'oc_word'
+    else
+        read oc_word from keaboard
+	add 'en_word' to database/english_table
+	add 'oc_word' to database/occitan_table
+    return  'oc_word'	
+*** rearrange 'moctable'
+    sort the word order to obtain a correct occitan sentence
+    add idtable  to database/enSentence_table
+    add moctable  to database/ocSentence_table
+
+** fr.po file
+   copy file-fr.po file-oc.po
+   open  file-oc.po for reading and writing
+   for each line in  file-oc.po
+       if line begins with 'msgid'
+           copy rest of the line to memory_table 'idtable'
+	   add idtable  to database/enSentence_table
+       if line begins with 'msgstr'
+           copy rest of the line to memory_table 'frmsgstr'
+	   if empty  'frmsgstr'
+	       translate 'en_word' to occitan 'oc_word'
+	       add 'oc_word' to 'moctable'
+	   translate 'frmsgstr' to occitan using 'https://revirada.eu'
+	   rearrange 'moctable'
+	  
+* Text File
+  open entxt for reading
+  if not exists octxt create empty file
+  open octxt for reading and writing
+** org-mode file
+   line begins with '#+' or a keyword
+** md file
+

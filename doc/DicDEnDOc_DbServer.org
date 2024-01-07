@@ -1,0 +1,103 @@
+#+TITLE: DicDEnDOc Database Server
+
+* DONE PostgreSQL installation
+  CLOSED: [2024-01-05 ven. 23:11]
+  :LOGBOOK:
+  - State "WAITING"    from "SOMEDAY"    [2024-01-05 ven. 23:11]
+  :END:
+
+** Installation on Fedora Linux
+   https://docs.fedoraproject.org/en-US/quick-docs/postgresql/
+   
+   * Install database server from Fedora repository
+     The server is disabled by default so we may need to enable it at boot and create the initial PostgreSQL database. 
+#+BEGIN_SRC bash:
+sudo dnf install postgresql-server postgresql-contrib
+# Start postgresql server at boot
+sudo systemctl enable postgresql
+# Create initial database
+sudo postgresql-setup --initdb --unit postgresql
+#+END_SRC
+
+   * Start database server manually 
+     Postgresql initial database creation is mandatory before you can start postgresql
+#+BEGIN_SRC bash:
+sudo systemctl start postgresql
+#+END_SRC
+
+** Installation on Debian or Ubuntu
+
+* IN-PROGRESS Postgresql Configuration
+
+   * Postgres Administrator 
+     The database need to be run by 'postgres' system user 
+
+#+BEGIN_SRC bash:
+sudo -u postgres psql
+#+END_SRC
+
+   * Database users creation
+
+#+BEGIN_SRC psql:
+CREATE USER dicdendoc_adm WITH PASSWORD 'DicDEnDOc';
+CREATE DATABASE dicdendoc OWNER dicdendoc_adm;
+\password postgres
+#+END_SRC
+
+   * Default Postgres configuration files
+     * Main PostgreSQL configuration file 
+       [[/var/lib/pgsql/data/postgresql.conf]]
+       Postgres default connection port : 5432
+       Data file locations : -D command-line option or PGDATA environment variable
+#+BEGIN_SRC
+data_directory = 'DicDEnDOc'
+hba_file = 'DicDEnDOc/pg_hba.conf'
+ident_file = 'DicDEnDOc/pg_ident.conf'
+#+END_SRC
+
+     * Client Connection and Authentication:
+       [[/var/lib/pgsql/data/pg_hba.conf]]
+       [[/var/lib/pgsql/data/pg_ident.conf]]
+#+BEGIN_SRC bash:
+sudo vi -p /var/lib/pgsql/data/postgresql.conf /var/lib/pgsql/data/pg_hba.conf
+#+END_SRC
+
+     * Firewall configuration
+       * Firewall manager
+#+BEGIN_SRC bash:
+# make it last after reboot
+firewall-cmd --permanent --add-port=5432/tcp
+# change runtime configuration
+firewall-cmd --add-port=5432/tcp
+#+END_SRC
+
+       * IP Tables
+#+BEGIN_SRC bash:
+iptables -A INPUT -p tcp --dport 5432 -m state --state NEW,ESTABLISHED -j ACCEPT
+#+END_SRC
+
+       * Selinux
+	 To define Selinux postgresql context to DicDEnDOc database, change Postgres port and authorize http connection to the database
+#+BEGIN_SRC bash:
+sudo semanage fcontext -a -t postgresql_db_t "/var/lib/pgsql/DicDEnDOc(/.*)?"
+sudo semanage port -a -t postgresql_port_t -p tcp 5433
+sudo setsebool -P httpd_can_network_connect_db on
+#+END_SRC
+
+       * systemd
+	 Configuration parameters passed to daemon overriding settings in postgresql.conf
+#+BEGIN_SRC bash:
+sudo vi /etc/systemd/system/postgresql.service
+#+END_SRC
+
+         * postgresql.service contain:
+#+BEGIN_SRC:
+.include /lib/systemd/system/postgresql.service
+[Service]
+Environment=PGDATA=""/var/lib/pgsql/DicDEnDOc(/.*)?"
+Environment=PGPORT=5433
+#+END_SRC
+
+* TODO Database creation
+
+   [[./img/DicDEnDOc_DB.png]]

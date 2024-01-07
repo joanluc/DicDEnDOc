@@ -1,0 +1,30 @@
+@startuml
+  actor Translator as Tr
+  collections "English text" as EnTx
+  collections "English interface" as EnIf
+  collections "Latin lenguage text" as LaTx
+  collections "Latin lenguage interface" as LaIf
+  collections "Occitan text" as OcTx
+  collections "Occitan interface" as OcIf  
+  database "DicDEnDOc DataBase" as DiDb
+  control "DicDEnDOc Program" as DiPr
+  alt  
+    Tr -> EnTx :  Translate
+    DiPr -> OcTx : Write
+    DiPr -> DiDb : Update
+  else  
+    Tr -> LaTx :  Translate
+    Tr -> EnTx :  Reference
+    DiPr -> OcTx : Write
+    DiPr -> DiDb : Update
+  else
+    Tr -> EnIf :  Translate
+    DiPr -> OcIf : Write
+    DiPr -> DiDb : Update
+  else  
+    Tr -> LaIf :  Translate
+    Tr -> EnIf :  Reference
+    DiPr -> OcIf : Write
+    DiPr -> DiDb : Update
+  end
+@enduml
