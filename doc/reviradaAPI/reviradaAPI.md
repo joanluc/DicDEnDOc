@@ -3,10 +3,10 @@
   Revirada has an API through which you can integrate machine translation into your programs and applications. 
   To query it, you can send the parameters by POST method using the URL https://api.revirada.eu/translate_string.
 
-** To use the Revirada API, you need an API key. 
+  * To use the Revirada API, you need an API key. 
    If you would like to obtain one, contact Lo Congrès: info@locongres.org.
 
-** The parameters required to query the API are:
+  * The parameters required to query the API are:
 
    “api_key”: your API key
    “engine”: “apertium”
