@@ -1,0 +1,18 @@
+# DicDEnDOc/src/lib/revirada/config.json
+# api_config  
+{
+  "api_key" : "dddfa5ffdba848d093876c344e58c349",
+  "engine" : "apertium",
+  "content_type" : content_type,
+  "text" : text,
+  "source_language" : source_language, # supported_languages
+  "target_language" : target_language, # supported_languages
+}
+# supported_languages
+[ "eng" , # british english
+  "eng_us" , # american english
+  "fra" , # french
+  "oci" , # languedocian occitan
+  "oci_gascon" , # gascon occitan
+] 
+  
