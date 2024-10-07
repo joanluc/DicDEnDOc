@@ -3,6 +3,8 @@
 #+TITLE: DicDEnDOc : English to Occitan Automatic Translation Software 
 #+AUTHOR: Joanluc <joanluc.laborda@free.fr>
 #+DESCRIPTION: This program aims to be used to translate GNU GetText localisation files, org, md or plain files from English to Occitan and to generate English to Occitan translation dictionary database from existing translations ; the GNU GetText localisation files can be english POT file (Portable Object Template file of msgid) or an other lenguage PO file (Portable Object file of msgid and msgstr in French, Spanish, Italian or Catalan mainly), in that cases the program will use external ressources to translate from theses other lenguages to occitan
+https://www.nltk.org
+https://wiki.apertium.org › wiki › Sentence_segmenting
 """
 import nltk # Natural Lenguage Tool Kit importation
 import regex as re
